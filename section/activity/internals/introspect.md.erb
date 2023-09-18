@@ -1,0 +1,32 @@
+<%= h3 "Introspection API" %>
+
+<a href="https://github.com/trailblazer/trailblazer-activity" class="pink"><i class="fa fa-gem" aria-hidden="true"></i> trailblazer-activity 0.16.0</a>
+
+To introspect an activity and find out about steps, IDs and configuration, use the `Introspect.Nodes()` function.
+
+Consider the following activity.
+
+<%= code_tabs "create" %>
+
+<%= h4 "ID" %>
+
+You can retrieve a datastructure describing a particular task by ID.
+
+<%= code "nodes" %>
+
+The returned `Attributes` object exposes `#id`, `#data` and `#task`.
+
+<!-- # FIXME: we need a skip-convert flag for Activity -> Operation -->
+<%= code "nodes-puts" %>
+
+<%= h4 "Task" %>
+
+It also accepts a `:task` option if you need to find attributes for a step where you only know the code component, not the ID. This is, for example, used in the tracing code.
+
+<%= code "nodes-task" %>
+
+The returned `Attributes` instance behaves identically to the above.
+
+<%= h4 "Data" %>
+
+Note that you can use `Attributes` to query [custom data from the DSL](/2.1/docs/internals.html#internals-dsl-introspect-data).

@@ -1,0 +1,12 @@
+/**
+* Create an invisible pseudo-element and make it the height of the
+* sticky navbar so the jump takes you to a location above the link
+* Copied from https://www.bryanbraun.com/anchorjs/#pages-with-a-sticky-navbar
+*/
+:target::before {
+  content: "";
+  display: block;
+  margin-top: -92px;
+  height: 92px;
+  width: 1px;
+}

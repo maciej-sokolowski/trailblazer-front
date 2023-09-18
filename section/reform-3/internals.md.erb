@@ -1,0 +1,56 @@
+<%= h2 "Reform 3" %>
+
+<%= info do %>
+The Reform-3 (`trailblazer-form`) section is still WIP (as of September 2022).
+<% end %>
+
+<%= h3 "Internals" %>
+
+* `Form.deserialize`
+
+returns `Form::Deserialized`
+
+* `Form::Deserialized`
+
+created in [NestedDeserializer]
+
+* NestedDeserializer
+
+<%= code :ruby do %>
+generic_input = # input going into the nested "form"
+          ->(ctx, value:, **) {
+            {
+              populated_instance: DeserializedFields.new,
+              form_instance:      nested_form.new,  # we use this as the {exec_context} for filters.
+              input:              value,
+            }
+          }
+<% end %>
+
+Railway.Subprocess(nested_deserializer).merge
+
+<%= code :ruby do %>
+Railway.Out() => ->(ctx, populated_instance:, form_instance:, **) {
+              # FIXME: use kw for {:model_from_populator}
+              {
+                value: Form::Deserialized.new(nested_schema, form_instance, populated_instance, ctx, paired_model: ctx[:paired_model]), # this is used in {set}.
+                # Here we would have to return the mutated twin
+              }
+<% end %>
+
+* `set`
+
+<%= code :ruby do %>
+populated_instance = populated_instance.merge(key => value)
+<% end %>
+
+
+
+* property(name, &block)
+
+1. options[:nested_block] = &block
+2. normalizer.()
+2.  normalizer Class.new(Form)... nested_block
+      => options[:nested]
+4. add_property_to_deserializer(, nested:, ) # note: {:nested} is already there and a Form subclass!
+5.    Class.new(Deserialize::Property::Read, &parse_block)

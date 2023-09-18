@@ -1,0 +1,40 @@
+var A="undefined"!==typeof globalThis?globalThis:"undefined"!==typeof self?self:global;var e={};(function(A,t){if(e)e=t();else{A.AnchorJS=t();A.anchors=new A.AnchorJS}})(globalThis,(function(){function AnchorJS(e){(this||A).options=e||{};(this||A).elements=[];
+/**
+     * Assigns options to the internal options object, and provides defaults.
+     * @param {Object} opts - Options object
+     */function _applyRemainingDefaultOptions(A){A.icon=Object.prototype.hasOwnProperty.call(A,"icon")?A.icon:"";A.visible=Object.prototype.hasOwnProperty.call(A,"visible")?A.visible:"hover";A.placement=Object.prototype.hasOwnProperty.call(A,"placement")?A.placement:"right";A.ariaLabel=Object.prototype.hasOwnProperty.call(A,"ariaLabel")?A.ariaLabel:"Anchor";A.class=Object.prototype.hasOwnProperty.call(A,"class")?A.class:"";A.base=Object.prototype.hasOwnProperty.call(A,"base")?A.base:"";A.truncate=Object.prototype.hasOwnProperty.call(A,"truncate")?Math.floor(A.truncate):64;A.titleText=Object.prototype.hasOwnProperty.call(A,"titleText")?A.titleText:""}_applyRemainingDefaultOptions((this||A).options);
+/**
+     * Add anchor links to page elements.
+     * @param  {String|Array|Nodelist} selector - A CSS selector for targeting the elements you wish to add anchor links
+     *                                            to. Also accepts an array or nodeList containing the relavant elements.
+     * @return {this}                           - The AnchorJS object
+     */(this||A).add=function(e){var t,i,n,s,o,a,l,r,c,h,p,u=[];_applyRemainingDefaultOptions((this||A).options);e||(e="h2, h3, h4, h5, h6");t=_getElements(e);if(0===t.length)return this||A;_addBaselineStyles();i=document.querySelectorAll("[id]");n=[].map.call(i,(function(A){return A.id}));for(o=0;o<t.length;o++)if(this.hasAnchorJSLink(t[o]))u.push(o);else{if(t[o].hasAttribute("id"))s=t[o].getAttribute("id");else if(t[o].hasAttribute("data-anchor-id"))s=t[o].getAttribute("data-anchor-id");else{r=this.urlify(t[o].textContent);c=r;l=0;do{void 0!==a&&(c=r+"-"+l);a=n.indexOf(c);l+=1}while(-1!==a);a=void 0;n.push(c);t[o].setAttribute("id",c);s=c}h=document.createElement("a");h.className="anchorjs-link "+(this||A).options.class;h.setAttribute("aria-label",(this||A).options.ariaLabel);h.setAttribute("data-anchorjs-icon",(this||A).options.icon);(this||A).options.titleText&&(h.title=(this||A).options.titleText);p=document.querySelector("base")?window.location.pathname+window.location.search:"";p=(this||A).options.base||p;h.href=p+"#"+s;"always"===(this||A).options.visible&&(h.style.opacity="1");if(""===(this||A).options.icon){h.style.font="1em/1 anchorjs-icons";"left"===(this||A).options.placement&&(h.style.lineHeight="inherit")}if("left"===(this||A).options.placement){h.style.position="absolute";h.style.marginLeft="-1.25em";h.style.paddingRight=".25em";h.style.paddingLeft=".25em";t[o].insertBefore(h,t[o].firstChild)}else{h.style.marginLeft=".1875em";h.style.paddingRight=".1875em";h.style.paddingLeft=".1875em";t[o].appendChild(h)}}for(o=0;o<u.length;o++)t.splice(u[o]-o,1);(this||A).elements=(this||A).elements.concat(t);return this||A};
+/**
+     * Removes all anchorjs-links from elements targeted by the selector.
+     * @param  {String|Array|Nodelist} selector - A CSS selector string targeting elements with anchor links,
+     *                                            OR a nodeList / array containing the DOM elements.
+     * @return {this}                           - The AnchorJS object
+     */(this||A).remove=function(e){var t,i,n=_getElements(e);for(var s=0;s<n.length;s++){i=n[s].querySelector(".anchorjs-link");if(i){t=(this||A).elements.indexOf(n[s]);-1!==t&&(this||A).elements.splice(t,1);n[s].removeChild(i)}}return this||A};(this||A).removeAll=function(){this.remove((this||A).elements)};
+/**
+     * Urlify - Refine text so it makes a good ID.
+     *
+     * To do this, we remove apostrophes, replace non-safe characters with hyphens,
+     * remove extra hyphens, truncate, trim hyphens, and make lowercase.
+     *
+     * @param  {String} text - Any text. Usually pulled from the webpage element we are linking to.
+     * @return {String}      - hyphen-delimited text for use in IDs and URLs.
+     */(this||A).urlify=function(e){var t=document.createElement("textarea");t.innerHTML=e;e=t.value;var i=/[& +$,:;=?@"#{}|^~[`%!'<>\]./()*\\\n\t\b\v\u00A0]/g;(this||A).options.truncate||_applyRemainingDefaultOptions((this||A).options);return e.trim().replace(/'/gi,"").replace(i,"-").replace(/-{2,}/g,"-").substring(0,(this||A).options.truncate).replace(/^-+|-+$/gm,"").toLowerCase()};
+/**
+     * Determines if this element already has an AnchorJS link on it.
+     * Uses this technique: https://stackoverflow.com/a/5898748/1154642
+     * @param    {HTMLElement}  el - a DOM node
+     * @return   {Boolean}     true/false
+     */(this||A).hasAnchorJSLink=function(A){var e=A.firstChild&&(" "+A.firstChild.className+" ").indexOf(" anchorjs-link ")>-1,t=A.lastChild&&(" "+A.lastChild.className+" ").indexOf(" anchorjs-link ")>-1;return e||t||false};
+/**
+     * Turns a selector, nodeList, or array of elements into an array of elements (so we can use array methods).
+     * It also throws errors on any other inputs. Used to handle inputs to .add and .remove.
+     * @param  {String|Array|Nodelist} input - A CSS selector string targeting elements with anchor links,
+     *                                         OR a nodeList / array containing the DOM elements.
+     * @return {Array} - An array containing the elements we want.
+     */function _getElements(A){var e;if("string"===typeof A||A instanceof String)e=[].slice.call(document.querySelectorAll(A));else{if(!(Array.isArray(A)||A instanceof NodeList))throw new TypeError("The selector provided to AnchorJS was invalid.");e=[].slice.call(A)}return e}function _addBaselineStyles(){if(null===document.head.querySelector("style.anchorjs")){var A,e=document.createElement("style"),t=".anchorjs-link{opacity:0;text-decoration:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}",i=":hover>.anchorjs-link,.anchorjs-link:focus{opacity:1}",n='@font-face{font-family:anchorjs-icons;src:url(data:n/a;base64,AAEAAAALAIAAAwAwT1MvMg8yG2cAAAE4AAAAYGNtYXDp3gC3AAABpAAAAExnYXNwAAAAEAAAA9wAAAAIZ2x5ZlQCcfwAAAH4AAABCGhlYWQHFvHyAAAAvAAAADZoaGVhBnACFwAAAPQAAAAkaG10eASAADEAAAGYAAAADGxvY2EACACEAAAB8AAAAAhtYXhwAAYAVwAAARgAAAAgbmFtZQGOH9cAAAMAAAAAunBvc3QAAwAAAAADvAAAACAAAQAAAAEAAHzE2p9fDzz1AAkEAAAAAADRecUWAAAAANQA6R8AAAAAAoACwAAAAAgAAgAAAAAAAAABAAADwP/AAAACgAAA/9MCrQABAAAAAAAAAAAAAAAAAAAAAwABAAAAAwBVAAIAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAMCQAGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAQAAg//0DwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAAIAAAACgAAxAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEADAAAAAIAAgAAgAAACDpy//9//8AAAAg6cv//f///+EWNwADAAEAAAAAAAAAAAAAAAAACACEAAEAAAAAAAAAAAAAAAAxAAACAAQARAKAAsAAKwBUAAABIiYnJjQ3NzY2MzIWFxYUBwcGIicmNDc3NjQnJiYjIgYHBwYUFxYUBwYGIwciJicmNDc3NjIXFhQHBwYUFxYWMzI2Nzc2NCcmNDc2MhcWFAcHBgYjARQGDAUtLXoWOR8fORYtLTgKGwoKCjgaGg0gEhIgDXoaGgkJBQwHdR85Fi0tOAobCgoKOBoaDSASEiANehoaCQkKGwotLXoWOR8BMwUFLYEuehYXFxYugC44CQkKGwo4GkoaDQ0NDXoaShoKGwoFBe8XFi6ALjgJCQobCjgaShoNDQ0NehpKGgobCgoKLYEuehYXAAAADACWAAEAAAAAAAEACAAAAAEAAAAAAAIAAwAIAAEAAAAAAAMACAAAAAEAAAAAAAQACAAAAAEAAAAAAAUAAQALAAEAAAAAAAYACAAAAAMAAQQJAAEAEAAMAAMAAQQJAAIABgAcAAMAAQQJAAMAEAAMAAMAAQQJAAQAEAAMAAMAAQQJAAUAAgAiAAMAAQQJAAYAEAAMYW5jaG9yanM0MDBAAGEAbgBjAGgAbwByAGoAcwA0ADAAMABAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAH//wAP) format("truetype")}',s="[data-anchorjs-icon]::after{content:attr(data-anchorjs-icon)}";e.className="anchorjs";e.appendChild(document.createTextNode(""));A=document.head.querySelector('[rel="stylesheet"],style');void 0===A?document.head.appendChild(e):document.head.insertBefore(e,A);e.sheet.insertRule(t,e.sheet.cssRules.length);e.sheet.insertRule(i,e.sheet.cssRules.length);e.sheet.insertRule(s,e.sheet.cssRules.length);e.sheet.insertRule(n,e.sheet.cssRules.length)}}}return AnchorJS}));var t=e;export{t as default};
+

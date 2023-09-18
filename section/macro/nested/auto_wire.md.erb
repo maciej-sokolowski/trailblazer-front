@@ -1,0 +1,58 @@
+<%= h3 "Auto_wire" %>
+
+The recommended way of maintaining dynamically nested operations (or activities) is to use `Nested()` with the `:auto_wire` option. It works exactly like its [purely dynamic](#macro-nested-dynamic) counterpart but requires you to specify all possible nested activities **at compile-time**.
+
+<%= code "create", collapse: :meths %>
+
+The `:auto_wire` option expects an array of nested activities. While this might seem a bit clumsy, this brings several benefits. First of all, execution is much faster since the entire activity graph is created at compile-time. Second, you can use the Debugging API to [introspect things](#macro-nested-auto_wire-debugging).
+
+You can use any type of decider step. In this example, it's a instance method `#decide_file_type` on the `Nested()`-hosting class.
+
+<%= image_tag "nested-static-create.png" %>
+
+Internally, the "auto-wire" `Nested()` macro simply returns a small activity as illustrated above in gray. It has a `decide` step to figure out which nested activity to run, then runs the actual nested activity. All well-known termini (success, failure, pass_fast, fail_fast) of the nested activities are automatically connected to the `Nested()`'s activity's termini.
+
+<%= h4 "Output Wiring" %>
+
+Given we had a nested activity `VorbisComment` implemented like so.
+
+<%= code "unsupported-terminus", collapse: :meths %>
+
+If the `#encode_cover` step fails, the activity will stop in the `End.unsupported_file_format` terminus - an end event very specific to the `VorbisComment` activity.
+
+<%= image_tag "nested-static-vorbiscomment.png" %>
+
+This new terminus has to be wired explicitely in the nesting activity.
+
+<%= code "create-output", collapse: :meths %>
+
+Using `Output(:unsupported_file_type)` from the Wiring API you can connect this specific terminus to wherever you need it, here it's routed to the failure track in `Create`. Note that Wiring API options are used after `Nested(...)`, not within its parenthesis.
+
+The complete activity graph would look a bit like the following diagram.
+
+
+<%= image_tag "nested-static-complete.png" %>
+
+<%= h3 "Compliance" %>
+
+<%= h4 "Debugger" %>
+
+`Nested` setups are traceable using `#wtf?`.
+
+<%= code :ruby do %>
+Trailblazer::Developer.wtf?(Song::Activity::Create, params: {type: "vorbis"})
+<% end %>
+
+The above examples result in a flow as follows.
+
+<%= image_tag "nested-static-trace.png" %>
+
+<%= h4 "Introspect" %>
+
+The trace is fully compatible with the Debugging API and allows compile-time introspection. For example, you can specify the path to a nested activity `Id3Tag` and inspect it.
+
+<%= code "create-introspect" %>
+
+Note that the ID of the nested activities are the class constants.
+
+<%= h4 "Patch" %>

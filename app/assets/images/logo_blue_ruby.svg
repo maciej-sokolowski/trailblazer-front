@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="667"
+   height="143"
+   viewBox="0 0 667 143"
+   fill="none"
+   version="1.1"
+   id="svg24"
+   sodipodi:docname="logo_blue-ruby.svg"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <metadata
+     id="metadata30">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs28" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1031"
+     id="namedview26"
+     showgrid="false"
+     inkscape:zoom="1.2043078"
+     inkscape:cx="199.64562"
+     inkscape:cy="86.500969"
+     inkscape:window-x="0"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg24" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M13.71 142.01V19.61H0.280029V0.219971H50.74V19.61H37.62V142.01H13.72H13.71Z"
+     fill="black"
+     id="path2"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M55.1799 142.01V0.219971H87.4099C92.7999 0.219971 96.6799 0.530005 99.3699 1.13C102.03 1.73 104.13 2.91995 105.92 4.69995C108.33 6.79995 109.8 9.45997 110.71 12.47C111.59 15.45 111.9 20.7999 111.9 27.6899V53.0601C111.9 58.7301 111.3 62.9 110.11 65.28C108.92 67.66 105.91 70.07 101.75 72.14C105.32 73.33 108.01 75.43 109.8 78.12C111.3 80.81 112.21 84.7 112.21 89.77V141.98H87.7199V88.86C87.7199 86.17 87.4099 84.0699 86.5299 83.1899C85.6499 82.3099 84.1499 81.6899 81.7399 81.6899H79.6699V142.01H55.1799ZM79.3599 19.33V62.3C79.9599 62.3 80.5499 62.58 81.1499 62.58C83.8399 62.58 85.6299 61.98 86.2199 60.79C86.8099 59.6 87.4099 57.22 87.4099 53.05V27.6801C87.4099 24.3901 87.1299 22.29 86.2199 21.1C85.6199 19.91 84.1499 19.3101 82.3399 19.3101H79.3599V19.33Z"
+     fill="black"
+     id="path4"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M115.42 142.01L127.38 0.219971H159.92L175.49 142.01H151.58L149.78 112.13H139.04L137.23 142.01H115.42ZM139.63 93.34H147.99L143.2 27.09L139.63 93.34Z"
+     fill="black"
+     id="path6"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M178.4 142.01V0.219971H202.61V142.01H178.4Z"
+     fill="black"
+     id="path8"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M246.74 122.59V142.01H207.93V0.219971H231.83V122.59H246.74Z"
+     fill="black"
+     id="path10"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M261.74 142.01L236.59 0.219971H265.25C272.42 0.219971 277.5 0.530034 280.47 1.41003C283.45 2.01003 286.14 3.51001 288.83 5.89001C291.21 7.99001 293 10.06 294.19 12.75C295.38 15.44 296.29 19.61 297.48 25.28L301.36 47.67C302.27 52.43 302.27 56.32 301.36 59.01C300.45 61.7 298.38 64.08 294.78 66.47C298.98 67.97 301.95 70.07 303.74 72.73C305.53 75.42 307.03 79.62 308.22 85.29L314.2 119.9C315.08 125.26 315.08 129.74 314.2 132.74C313.29 136 311.22 138.41 307.94 139.6C304.65 141.07 300.1 142.01 294.12 142.01H261.74ZM270.92 56.3199L273.3 56.63C275.09 56.63 276.3 56.32 276.9 56.03C277.5 55.72 278.09 55.1201 278.09 53.9301C278.37 53.0501 278.09 51.24 277.78 49.17L274.21 28.28C273.61 24.4 272.71 22.02 271.83 21.11C270.92 19.92 269.14 19.61 266.44 19.61H264.34L270.92 56.3199ZM274.21 75.74L282.57 122.88C283.17 122.88 284.36 123.19 285.23 123.19C287.64 123.19 289.11 122.59 289.43 121.69C290.03 120.78 289.71 118.4 289.12 115.11L283.76 84.38C283.16 80.5 282.26 78.12 281.38 77.21C280.47 76.33 278.69 75.74 275.68 75.74H274.21Z"
+     fill="black"
+     id="path12"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M358.66 122.59V142.01H319.85V0.219971H343.75V122.59H358.66Z"
+     fill="black"
+     id="path14"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M469.35 0.22998H422.5V19.9301H444.89L420.4 124.38V127.72L406.42 0.22998H373.88L362.2 142.01H383.41L385.22 112.14H395.96L397.77 142.01H469.35V122.6H444.89L469.35 18.74V0.22998ZM386.41 93.34L389.7 27.1L394.77 93.34H386.41Z"
+     fill="black"
+     id="path16"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M474.71 141.67V0.219971H514.11V19.61H498.89V55.13H514.11V74.24H498.89V123.19H514.11V141.98H474.71V141.67Z"
+     fill="black"
+     id="path18"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     fill-rule="evenodd"
+     clip-rule="evenodd"
+     d="M518.57 141.98V0.25H550.8C556.19 0.25 560.07 0.560034 562.76 1.16003C565.42 1.76003 567.52 2.94998 569.31 4.72998C571.72 6.82998 573.19 9.49 574.1 12.5C574.98 15.48 575.29 20.83 575.29 27.72V53.09C575.29 58.76 574.69 62.9301 573.5 65.3101C572.31 67.6901 569.3 70.1 565.14 72.17C568.71 73.36 571.4 75.46 573.19 78.15C574.69 80.84 575.6 84.73 575.6 89.8V142.01H551.11V88.89C551.11 86.2 550.8 84.1 549.92 83.22C549.04 82.34 547.54 81.72 545.13 81.72H543.06V142.01L518.57 141.98ZM542.75 19.35V62.3199C543.35 62.3199 543.94 62.6 544.54 62.6C547.23 62.6 549.02 62.0001 549.61 60.8101C550.2 59.6201 550.8 57.2399 550.8 53.0699V27.7C550.8 24.41 550.52 22.31 549.61 21.12C549.01 19.93 547.54 19.33 545.73 19.33H542.75V19.35Z"
+     fill="black"
+     id="path20"
+     style="fill:#140f3f;fill-opacity:1" />
+  <path
+     d="M634.99 23.8199H581.34V36.8199H601.31L618.09 60.6801H581.34V68.6801H619.28L615.74 78.33L623.25 81.1L627.81 68.6801H645.11L614.06 105.94L620.56 88.39L613.06 85.62L599.93 121.03L581.34 99.41V119.35L600.72 141.49L666.13 63.9L634.99 23.8199ZM627.87 60.6801L611.09 36.8199H628.63L647.17 60.6801H627.87Z"
+     fill="black"
+     id="path22"
+     style="fill:#140f3f;fill-opacity:1" />
+</svg>

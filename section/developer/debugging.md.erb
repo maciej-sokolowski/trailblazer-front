@@ -1,0 +1,97 @@
+<%= h2 "Developer" %>
+
+<a href="https://github.com/trailblazer/trailblazer-developer" class="pink"><i class="fa fa-gem" aria-hidden="true"></i> trailblazer-developer 0.1.0</a>
+
+Trailblazer provides a rich set of developer tools to ease debugging and make modelling processes a pleasant experience.
+
+The [`developer` gem](https://github.com/trailblazer/trailblazer-developer) contains tools to help you visualize and debug Trailblazer code. Its development features such as tracing or exception handling are advanced tools and will become your best friends very quickly.
+
+<%= h3 "Constant" %>
+
+We advise you to alias the `Developer` constant to something handy, such as `::Dev` in your project. For instance, in Rails you'd have the following line in a `config/initializers/trailblazer.rb` initializer.
+
+<%= code "constant" %>
+
+<%= h3 "Wtf?" %>
+
+The iconic `wtf?` method is one way to invoke an operation with tracing turned on. During the execution, invoked steps are traced and printed in the console as a tree-view, helping you to understand the code path the operation took. It is one of Trailblazer's most-loved features and was introduced in Trailblazer 2.1.
+
+When working with a `Trailblazer::Operation` simply invoke its `#wtf?` method.
+
+<%= code "wtf-op" %>
+
+On the console, you can see the printed trace in all its beauty.
+
+<%= image_tag "wtf-trace-nice.png" %>
+
+This method is especially helpful if you want to
+
+* Debug an exception happening somewhere deep in your code.
+* Find out which step changed the track to failure.
+* Focus on specific step(s) to find out what `ctx` mutations are happening inside them.
+
+<%= h4 "Exception" %>
+
+In case of an exception somewhere in the operation or its nested activities, `wtf?` will print the trace path to the closest point where the exception was thrown.
+
+<%= image_tag "wtf-exception.png" %>
+
+The original exception will be visible on the console, too.
+
+<%= info do %>
+Please note that this is a higher-level debugging tool that does not confront you with a 200-lines stack trace the way Ruby does it, but pinpoints the exceptional code and locates the problem on a task level.
+
+This is possible due to you structuring code into higher abstractions, tasks and activities.
+<% end %>
+
+<%= h4 "Activity" %>
+
+The `#wtf?` class method is only available for `Trailblazer::Operation` subclasses. You will get an exception if you try to use it with `Trailblazer::Activity::Railway` and other activities.
+
+<%= code do %>
+NoMethodError: undefined method `wtf?' for Memo::Operation::Create:Class
+<% end %>
+
+
+However, tracing can be used with low-level `Activity` classes, too.
+
+<%= code "memo-railway", collapse: :methods %>
+
+You have to use the clumsier `Developer.wtf?` method for tracing.
+
+<%= code "wtf-activity" %>
+
+As always with `Activity` subclasses, it operates with the [circuit interface](activity.html#activity-internals-circuit-interface).
+
+<%= h4 "color_map" %>
+
+The `color_map` option allows you to customize default coloring scheme being used to render passed or failed steps.
+
+<%= image_tag "wtf-color-map.webp" %>
+
+<%= h3 "Render" %>
+
+It often is helpful to visualize an activity. One way is the `render` helper.
+
+<%= code :ruby do %>
+puts Trailblazer::Developer.render(Memo::Create)
+<% end %>
+
+The rendered output prints each task, its outputs and where they're connected to.
+
+<%= info do %>
+We're working on improved visualization for the console, and for the web editor. If you want to help, please ping us on [our chat](https://trailblazer.zulipchat.com/).
+<% end %>
+
+<%= h3 "Render Linear" %>
+
+<%= h3 "Client" %>
+
+The `Developer::Client` module provides functions to work with activities and workflows created in the PRO editor.
+
+<%= h4 "Import" %>
+
+Notes
+
+* IDs are extracted from the label of the element. They get `chomp`ed to remove a potential newline at the end and reduce confusion.
+* It is currently not possible to assign semantics to arrows via the label. In the meantime, use the `:query` option. # TODO

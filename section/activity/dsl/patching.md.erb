@@ -1,0 +1,46 @@
+<%= h3 "Patching" %>
+
+Working with `Subprocess` and nested activities is a great way to encapsulate and create reusable code especially with complex logic. However, it can be a PITA if you want to customize one of those deeply nested components and add, replace or remove a certain step.
+
+Suppose the following 3-level nested activity.
+
+<%= image_tag "patch.png", width: "63%" %>
+
+The public operation `Destroy` contains `Delete` as a nested activity, which itself contains `DeleteAssets`. In order to customize the latter one and add another step `tidy_storage`, you'd normally have to subclass all three activities and override steps.
+
+<%= h4 "Patch" %>
+
+Using `#patch`, you can modify nested activities from the uppermost activity and let Trailblazer do the legwork.
+
+As `#patch` is mostly used when leveraging inheritance we introduce a subclass of `Destroy` which is called `Erase` and introduces the `#tidy_storage` step. As illustrated above, this new step should be inserted in `DeleteAssets` activity that itself is nested in `Delete`, which again is one step of `Destroy`.
+
+<%= code "patch_function", collapse: "meths" %>
+
+The patching logic accepts a path to the particular activity that you want to modify.
+
+<%= code :ruby do %>
+patch(:delete, :delete_assets) { ... }
+<% end %>
+
+The provided block is executed within that targeted activity and executed as if you'd extend that class. However, the entire modification will only change `Erase`, all other traversed activities are copied and then modified, leaving the original implemenation unchanged.
+
+<%= image_tag "patch-trace.png" %>
+
+The `#patch` method is perfect when using inheritance to first copy over behavior and control flow, and then fine-tune it for the specific use case.
+
+<%= h4 "Patch Option" %>
+
+If you're not using inheritance and want to tweak a nested activity ad-hoc the `Subprocess()` helper accepts a `:patch` option.
+
+<%= code_tabs "destroy", collapse: "meths" %>
+
+This works just like the `#patch` function but returns the patched activity.
+
+`Subprocess()` accepts the `:patch` option which consists of a hash of the path to the customized activity, and its patch.
+
+This will result in an identical operation as in the above example with `#patch`. However, `Delete` is now the operation containing the customization, not a new class `Erase`.
+
+Patching can be also done at the top-level activity by passing  `:patch` as a block (Take `Delete` from above example).
+
+<%= code "patch_self" %>
+

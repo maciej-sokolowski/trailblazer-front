@@ -3,14 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-pre {
-  @apply mt-4;
-}
-
-pre code {
-  @apply rounded;
-}
-
 @layer components {
   .hamburger-toggle {
     @apply
@@ -22,7 +14,7 @@ pre code {
   }
 
   .active-mobile-navbar {
-    @apply sticky top-0 h-screen;
+    @apply sticky top-0 h-screen bg-purple;
   }
 
   .base-button {
@@ -61,11 +53,11 @@ pre code {
   }
 
   .documentation-side-nav {
-    @apply bg-bg-blue w-screen h-screen fixed top-0 z-20 transition-all ease-in-out right-[100vw] overflow-y-scroll
+    @apply bg-bg-blue w-screen h-screen fixed top-0 z-20 right-[100vw] overflow-y-scroll
       lg:w-3/12 lg:max-w-[23rem] lg:static  lg:overflow-y-visible lg:shrink-0 lg:sticky lg:top-[5.5rem];
   }
 
   .documentation-right-nav-link {
-    @apply block px-2 leading-8 hover:scale-105;
+    @apply block px-2 leading-8;
   }
 }

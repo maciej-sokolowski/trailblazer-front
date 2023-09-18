@@ -1,7 +1,16 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "./navigations"
 import hljs from 'highlight.js/lib/core';
 import ruby from 'highlight.js/lib/languages/ruby';
+import anchorJS from 'anchor-js';
 
-hljs.registerLanguage("ruby", ruby)
-hljs.highlightAll();
+import ScrollSpy from 'scrollspy';
+import 'navigations';
+
+document.addEventListener('DOMContentLoaded', function () {
+  hljs.registerLanguage('ruby', ruby);
+  hljs.highlightAll();
+
+  ScrollSpy.init();
+
+  var anchors = new anchorJS();
+  anchors.add('h2, h3, h4');
+});

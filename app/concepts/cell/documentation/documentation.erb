@@ -1,0 +1,49 @@
+<section>
+  <div class="lg:hidden bg-bg-blue text-white fixed left-0 top-20 pr-1 py-3 rounded-r" id="sideNavShowButton" style="writing-mode: vertical-rl; text-orientation: upright;">
+    Chapters
+  </div>
+  <div class="lg:flex">
+    <nav class="documentation-side-nav" id="sideNav">
+      <div class="lg:hidden absolute right-4 top-4 text-3xl text-white" id="sideNavHideButton">
+        X
+      </div>
+      <%= toc_left %>
+    </nav>
+    <div class="lg:p-10 pl-8 pr-4 py-10 bg-light-grey grow">
+      <h1 class="lg:text-3xl text-2xl text-blue font-bold">
+        <span class="font-black uppercase">
+          <%= documentation_title %>
+        </span>
+        Documentation
+      </h1>
+      <!-- <div class="text-base leading-10">
+        <span class="font-bold text-bg-blue">
+          <%= "Subject A |" %>
+        </span>
+        <span class="text-purple">
+          Subject 02
+        </span>
+      </div> -->
+      <div class="xl:flex xl:gap-0.5 mt-5">
+        <div class="max-w-3xl lg:p-8 lg:pb-14 p-4 bg-white text-bg-blue" id="documentation">
+          <%= yield %>
+        </div>
+        <div class="bg-white relative" id="right-toc">
+          <%= tocs_right %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="px-10 py-22 bg-bg-purple-3" id="callout-section">
+  <h1 class="section-header font-bold">
+    Is there anything unanswered?
+    <br/>
+    Get in touch with
+    <span class="font-black">
+      TRAILBLAZER
+    </span>
+    <%= link_to "Chat with us", "#", class: "base-button bg-purple text-white mt-15 mx-auto" %>
+  </h1>
+</section>

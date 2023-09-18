@@ -1,0 +1,102 @@
+<%= h2 "Wrap" %>
+
+Sometimes you need to run a sequence of steps within some block you provide. Often, this is required when certain steps must be wrapped in a database transaction. The `Wrap()` macro does just that.
+
+<%= code "upload", collapse: :meths %>
+
+In an imaginary song `Upload` operation that transfers a music file to some streaming service platform while updating fields on the database, needs the steps `#update` and `#transfer` being run inside a transaction. The code running and interpreting this block is provided via the custom transaction `MyTransaction`.
+
+<%= h3 "Wrap handler" %>
+
+The most simple "transaction" (we call it _wrap handler_) could look as follows.
+
+<%= code "my_transaction" %>
+
+Your transaction handler can be any type of [callable] exposing the [circuit interface](activity.html#activity-internals-circuit-interface).
+
+In the most simple transaction ever written, we simply run the wrapped steps by calling `yield`. This will return a circuit-interface return set. The interesting parts are the returned `ctx`, which is the ctx that left the wrapped steps, and the `signal`, which indicates the outcome of running the wrapped steps.
+
+Here, we simply return the original signal of the wrapped activity.
+
+Note that internally `#update` and `#transfer` are put into a separate activity. The terminus reached in that activity is the signal.
+
+<%= image_tag "wrap.png" %>
+
+Given that both `#update` and `#transfer` are railway steps, the wrapped code can terminate in a `success` terminus, or a `failure`.
+Now, it's your handler that is responsible to interpret that. In the example above, we simply pass on the wrapped activity's terminal signal, making the `Upload` activity either continue from `success` or from `failure`.
+
+<%= h4 "Routing" %>
+
+Let's assume the `#transfer` step had a custom output that goes to a super-special terminus `End.timeout`.
+
+<%= code "out-wrap" %>
+
+The resulting wrapped activity now has three termini.
+
+<%= image_tag "wrap-timeout.png" %>
+
+
+
+With our handler, which simply returns the wrapped activity's signal, it's possible to route the `:timeout` signal in `Upload`. For instance, if a `:timeout` should be resulting in `Upload` jumping to the `fail_fast` track after `#transfer` terminated in `timeout`, you can do so.
+
+<%= code "out" %>
+
+Here's what the circuit would look like.
+
+<%= image_tag "wrap-route.png" %>
+
+<%= h3 "Transaction" %>
+
+Wrapping steps into a real database transaction, and rolling back in case of a failure outcome in one of the steps, could look like so.
+
+<%= code "my_transaction", root: ".", file: "../trailblazer-rails/test/dummy/app/concepts/song/operation/upload.rb" %>
+
+This might look a bit clumsy, but most of the code is very straight-forward.
+
+1. Your main intent, wrapping a sequence of steps into an `ActiveRecord::Base.transaction` block, contains the `yield` invocation that runs the wrapped steps.
+2. Having the `signal` of the wrapped activity returned, you can decide how you'd like to interpret that. Usually, looking at the signals `:semantic` field indicates the outcome.
+3. In case you're not happy, a `raise ActiveRecord::Rollback` will make ActiveRecord undo whatever database commits happened in the block.
+4. Instead of returning the nested activity's `signal`, which is completely legit, `Wrap()` also allows you to return a `Right` or `Left` signal to communicate the outcome of the entire `Wrap()` component.
+
+<%= h3 "Exception handling" %>
+
+Catching and intercepting exceptions in `Wrap()` works identical to transactions. In case you don't want to use our canonical [Rescue() macro](#---FIXME) here is a sample wrap handler that uses `rescue` for intercepting exceptions thrown in `#update` or `#transfer`.
+
+<%= code "my_rescue", collapse: :meths %>
+
+With any exception being thrown, the original signal from the wrapped activity is returned, as if the steps were part of the `Upload` operation flow.
+
+The code below `rescue` is only run when an exception was thrown. Here, we write a new variable `:exception ` to the `ctx` and return `Left`, indicating an error.
+
+<%= h3 "Compliance" %>
+
+<%= h4 "Debugger" %>
+
+You can use tracing with `Wrap()`.
+
+<%= code :ruby do %>
+Trailblazer::Developer.wtf?(Song::Activity::Upload, params: {id: 1})
+<% end %>
+
+The trace per default shows Wrap's ID.
+
+<%= image_tag "wrap-trace.png" %>
+
+<%= h4 "Introspect" %>
+
+You can use any `Introspect` mechanics on activities using `Wrap()`.
+
+<%= code "find_path" %>
+
+<%= h4 "Patch" %>
+
+`Wrap()` is compatible with the Patch API, as in, you may replace nested steps or entire activities within the wrapped part.
+
+Consider the `Upload` activity used throughout this example.
+<%= code "upload", collapse: :meths %>
+
+Say you want to replace the `#update` step within the wrap with a new step `#upsert`, you can use `Patch` as so.
+
+<%= code "patch" %>
+
+The returned new activity `upload_with_upsert` is a copy of `Upload` with the respective step replace. Note that in this very example, the method `#upsert` has to be included in the nested activity.

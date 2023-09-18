@@ -1,0 +1,80 @@
+<%= h2 "TRB PRO" %>
+
+TRB PRO is a collection of additional tools for working with Trailblazer, such as the following.
+
+* A web debugger that integrates with our tracing tools like `#wtf`.
+* Our BPMN editor for designing long-running workflows that are executed by the `trailblazer-workflow` process engine.
+
+<%= image_tagpro.webp" %>
+
+It is free of charge for low-volume users. Please consider purchasing a subscription in order to support Trailblazer development.
+
+<%= h3 "Rails support" %>
+
+Using our web debugger in your project is as easy as the following five steps.
+
+1. In your Rails' `Gemfile`, add the gem.
+
+    <%= code :ruby do %>
+      gem "trailblazer-pro-rails"
+    <% end %>
+
+
+2. Get your API key from [https://pro.trailblazer.to/settings](https://pro.trailblazer.to/settings). You have to sign up with Github if you haven't before. We're not asking for a credit card number, upgrading is always possible.
+3. In your Rails app, run our generator and enter your API key.
+
+    <%= code :ruby do %>
+      $ rails g trailblazer:pro:install
+    <% end %>
+
+  You're now ready to trace and debug on the web.
+
+4. Run your operation via `#WTF?`.
+
+    <%= code :ruby do %>
+      result = API::V1::Diagram::Operation::Update.wtf?(params: params)
+    <% end %>
+
+Click the `[TRB PRO]` link in your terminal and start debugging.
+
+<%= image_tagdebugger-ide-screenshot-august.png" %>
+
+<%= h4 "Explicit tracing" %>
+
+You can use the new method `Operation.WTF?` to explicitly trace using the web debugger.
+
+<%= code :ruby do %>
+  result = API::V1::Diagram::Operation::Update.wtf?(params: params)
+<% end %>
+
+This will always send the trace to the web, regardless of any configuration.
+
+<%= h4 "Automatic tracing" %>
+
+It's possible to web-trace operation that're invoked with the generic `Operation.()`.
+
+For example, you could automatically web-trace specific operation run from a controller with the following configuration in `config/environments/development.rb`.
+
+<%= code :ruby do %>
+  config.trailblazer.pro.trace_operations = {
+    "API::V1::Diagram::Operation::Update" => true,
+  }
+<% end %>
+
+The `trace_operations` directive allows you to enable web-tracing for particular operations.
+
+If needed, you can enable it for all operations.
+
+ # TODO
+
+ <%= h4 "Planned" %>
+
+ Please note that `trailblazer-pro` and `trailblazer-pro-rails` are still experimental, and we're presently collecting "power user" experiences and feature requests.
+
+ Planned features are
+
+ * End-to-end encryption for traces, so we won't be able to see anything your app is doing.
+ * Activity tracing.
+ * More configuration of the tracing process.
+ * Better production mode: collect the trace (which is fast), and only render it if something went wrong. Add the web-trace link to your exception handlers.
+ * Please contact us if you need more: https://github.com/trailblazer/trailblazer-pro-rails/issues or https://trailblazer.zulipchat.com
